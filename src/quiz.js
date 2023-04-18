@@ -2,6 +2,7 @@ import data from '../assets/data/data.js'
 import { getElement } from "./utils.js";
 import { updateProgressBar } from './utils.js';
 import { selectedColor, selectedOption } from './selectedFunctionality.js';
+import { renderRow, renderColor } from './renderFunctionality.js';
 
 const questions = document.getElementById('questions')
 const content = getElement('.content')
@@ -9,32 +10,34 @@ const quizContainer = getElement('.quiz-container')
 const nextBtn = getElement('.next-btn')
 
 let results = {}
-let color;
+let withImage = false;
 
 // display questions and options
 const showQuestion = (index) => {
   quizContainer.dataset.currentStep = index;
 
-  const renderColor = () => data[index].answers.map((opt) => `
-  <li class="task-item task-item-color" style=background-color:${opt.value}>
-    </li>
-  `).join("")
-  quizContainer.innerHTML = `
-  <div class="content__test-question">
-    <p id="questions">
-    ${data[index].question}
-    </p>
-  </div>
+  if (data[index].modifier === 'colorpicker') {
+    renderColor(index, data)
+  } else if (data[index].modifier === 'image') {
+    withImage = true;
+    renderQuestions(index, withImage)
+  }  else {
+    renderQuestions(index)
+  }
+  if(data[index].type === 'row') {
+    withImage = true;
+    renderRow(index, data)
+  }
+}
 
-   <ul class="quiz-options quiz-options-color">
-   ${renderColor()}
-   </ul>
-  `
+const renderQuestions = (index, withImage) => {
+  let img;
 
+  if(withImage && index === 9) {
+     img = '../assets/svg/imageTest.svg'
+  } 
 
-  if (index === 4 || index === 5) {
-    renderColor()
-  } else {
+  if (data[index]) {
     const renderOptions = () => data[index].answers.map((option, index) => `
     <li class="task-item">
    <label for=${option.value} class="label">
@@ -56,17 +59,23 @@ const showQuestion = (index) => {
     </p>
   </div>
 
+  ${withImage && `
+  <div class="img-quiz-container">
+  <img src=${img} class="img-quiz"/>
+  </div>
+  `}
+
    <ul class="quiz-options">
- ${renderOptions()}
+   ${renderOptions()}
    </ul>
   `
   }
 }
 
-
 content.addEventListener('click', (e) => {
   selectedOption(e)
   selectedColor(e)
+
   if (e.target.classList.contains('next-btn')) {
     nextBtn.disabled = true;
     showQuestion(Number(quizContainer.dataset.currentStep) + 1)
@@ -76,12 +85,10 @@ content.addEventListener('click', (e) => {
 
 
 content.addEventListener('change', (e) => {
-  selectedOption(e)
   if (e.target.classList.contains('radiobtn')) {
     results[e.target.name] = e.target.value;
     nextBtn.disabled = false;
   }
 })
 
-
-showQuestion(1)
+showQuestion(2)

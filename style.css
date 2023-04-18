@@ -556,6 +556,39 @@ body {
     background-color: rgba(82, 82, 88, 0.4);
 }
 
+.task-item-row {
+    cursor: pointer;
+    margin-top: 7%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: white;
+}
+.task-item-row:hover {
+    background-color: whitesmoke;
+}
+
+.task-item-row>label {
+    color: black;
+}
+
+.row {
+    gap: 1.8rem;
+    flex-wrap: nowrap;
+}
+
+.img-quiz-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.7rem;
+}
+
+.img-quiz {
+    object-fit: cover;
+
+    width: 15rem;
+}
+
 
 label {
     font-family: "PT Serif";

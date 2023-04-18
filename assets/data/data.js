@@ -1,3 +1,5 @@
+
+
 const quizData = [
   {
     id: 0,
@@ -53,7 +55,6 @@ const quizData = [
     id: 4,
     question: "Выберите цвет, который сейчас наиболее вам приятен:",
     modifier: "colorpicker",
-    fontSize: "1.1875",
     name: "chooseColor",
     answers: [
       { value: "#A8A8A8" },
@@ -71,7 +72,6 @@ const quizData = [
     id: 5,
     question: "Отдохните пару секунд, ещё раз выберите цвет, который сейчас наиболее вам приятен:",
     modifier: "colorpicker",
-    fontSize: "1.1875",
     name: "chooseColor2",
     answers: [
       { value: "#A8A8A8" },
@@ -102,11 +102,9 @@ const quizData = [
   {
     id: 7,
     question: "Выберите\u00A0правильную\u00A0фигуру из\u00A0четырех\u00A0пронумерованных.",
-    fontSize: "1.125",
     name: "figure",
-    img: true,
-    imgSizes: { width: 11.5625, height: 14.6875 },
-    modifier: "row",
+    modifier: "image",
+    type: "row",
     answers: [
       { value: "1", label: "1" },
       { value: "2", label: "2" },
@@ -134,10 +132,8 @@ const quizData = [
   {
     id: 9,
     question: "Какое определениe, по-Вашему, больше подходит к этому геометрическому изображению:",
-    fontSize: "1",
     name: "pyramid",
-    img: true,
-    imgSizes: { width: 10.8125, height: 7.1875 },
+    modifier: "image",
     answers: [
       { value: "spiky", label: "Оно остроконечное" },
       { value: "steady", label: "Оно устойчиво" },
