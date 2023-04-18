@@ -1,19 +1,41 @@
 import data from '../assets/data/data.js'
 import { getElement } from "./utils.js";
+import { updateProgressBar } from './utils.js';
+import { selectedColor, selectedOption } from './selectedFunctionality.js';
 
 const questions = document.getElementById('questions')
-const progress = getElement('.progress-bar')
 const content = getElement('.content')
 const quizContainer = getElement('.quiz-container')
 const nextBtn = getElement('.next-btn')
 
 let results = {}
+let color;
 
 // display questions and options
 const showQuestion = (index) => {
   quizContainer.dataset.currentStep = index;
 
-  const renderOptions = () => data[index].answers.map((option, index) => `
+  const renderColor = () => data[index].answers.map((opt) => `
+  <li class="task-item task-item-color" style=background-color:${opt.value}>
+    </li>
+  `).join("")
+  quizContainer.innerHTML = `
+  <div class="content__test-question">
+    <p id="questions">
+    ${data[index].question}
+    </p>
+  </div>
+
+   <ul class="quiz-options quiz-options-color">
+   ${renderColor()}
+   </ul>
+  `
+
+
+  if (index === 4 || index === 5) {
+    renderColor()
+  } else {
+    const renderOptions = () => data[index].answers.map((option, index) => `
     <li class="task-item">
    <label for=${option.value} class="label">
    <input
@@ -27,7 +49,7 @@ const showQuestion = (index) => {
      </li>
   `).join("")
 
-  quizContainer.innerHTML = `
+    quizContainer.innerHTML = `
   <div class="content__test-question">
     <p id="questions">
     ${data[index].question}
@@ -38,15 +60,17 @@ const showQuestion = (index) => {
  ${renderOptions()}
    </ul>
   `
+  }
 }
 
 
 content.addEventListener('click', (e) => {
   selectedOption(e)
+  selectedColor(e)
   if (e.target.classList.contains('next-btn')) {
     nextBtn.disabled = true;
     showQuestion(Number(quizContainer.dataset.currentStep) + 1)
-    updateProgressBar(Number(quizContainer.dataset.currentStep));
+    updateProgressBar(Number(quizContainer.dataset.currentStep), data);
   }
 })
 
@@ -59,23 +83,5 @@ content.addEventListener('change', (e) => {
   }
 })
 
-function selectedOption (e) {
-    quizContainer.querySelectorAll('li').forEach((option) => {
-      option.addEventListener('click', (e) => {
-         if(e.target.checked) {
-          if (quizContainer.querySelector('.selected')) {
-            const active = quizContainer.querySelector('.selected')
-            active.classList.remove('selected')
-          }
-          option.classList.add('selected')
-         }
-         })
-      }) 
-}
 
-function updateProgressBar(id) {
-  progress.style.width =
-    ((id / (data.length - 1)) * 100).toFixed(2) + "%";
-}
-
-showQuestion(0)
+showQuestion(1)
