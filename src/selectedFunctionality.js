@@ -1,9 +1,6 @@
 import { getElement } from "./utils.js";
 
-const quizContainer = getElement('.quiz-container')
-const nextBtn = getElement('.next-btn')
-
-export function selectedOption(e) {
+export function selectedOption(e, quizContainer) {
   quizContainer.querySelectorAll('li').forEach((option) => {
     option.addEventListener('click', (e) => {
       if (e.target.checked) {
@@ -17,7 +14,7 @@ export function selectedOption(e) {
   })
 }
 
-export function selectedAddition(e) {
+export function selectedAddition(e, quizContainer, nextBtn) {
   if (e.target.classList.contains('task-item-color')) {
     if (quizContainer.querySelector('.selected-color')) {
       const active = quizContainer.querySelector('.selected-color')

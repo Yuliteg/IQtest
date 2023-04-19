@@ -1,4 +1,3 @@
-
 function time_remaining(endtime) {
   const t = Date.parse(endtime) - Date.parse(new Date());
   const seconds = Math.floor((t / 1000) % 60);

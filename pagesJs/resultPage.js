@@ -1,24 +1,17 @@
 import { run_clock } from "../src/timer.js";
+import { getElement } from "../src/utils.js";
 const headerText = document.querySelector(".header_p")
 
 const time_in_minutes = 10;
 const current_time = Date.parse(new Date());
 const deadline = new Date(current_time + time_in_minutes * 60 * 1000);
 
-export function resultProcessing() {
-  const innerHTML = `<div class=content__test-question>
-  <p class=res_processing>Обработка результатов</p>
-  </div>
-  <div class="loader my_loader"></div>
-  <div class="content__test-question loader_text">
-  <p>Определение стиля мышления...........</p>
-  </div>
-  `
-  document.getElementById("#quiz-container").innerHTML += innerHTML;
-}
 
 export function resultPage() {
-  headerText.innerHTML = "Готово!"
+  const textContainer = getElement('.hero__intro-header-text')
+  textContainer.innerHTML = `<p class=header_p>Готово!
+  </p>`
+
   const innerHTML = `
    <div class=content__test-question>
     <p class=res_header>Ваш результат рассчитан</p>
@@ -52,7 +45,6 @@ export function resultPage() {
     </button>
    </div>
   `
-  document.getElementById("#content").innerHTML += innerHTML;
-  run_clock('clockdiv',deadline)
+  getElement(".content").innerHTML += innerHTML;
+  run_clock('clockdiv', deadline)
 }
-

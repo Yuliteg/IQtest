@@ -732,19 +732,21 @@ button:disabled {
 }
 
 .res_card {
-    margin-top: 0.4rem;
-    width: 80%;
+    margin-left: 5%;
+    margin-top: 1rem;
+    width: 90%;
     background: #1C2741;
     border-radius: 6px;
 }
 
 .res_card-text {
-    padding-top: 0.2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.4rem;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 500;
-    font-size: 10px;
-    line-height: 18px;
+    font-size: 11px;
+    line-height: 20px;
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -767,7 +769,13 @@ button:disabled {
     padding-top: 0;
 }
 
+.res_button-container {
+    display: flex;
+    justify-content: center;
+}
+
 .res_btn {
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
     gap: 1rem;
     background: #EB1B00;

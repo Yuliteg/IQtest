@@ -3,22 +3,22 @@ import { getElement } from "./utils.js";
 import { updateProgressBar } from './utils.js';
 import { selectedOption, selectedAddition } from './selectedFunctionality.js';
 import { renderRow, renderColor, renderQuestions } from './renderFunctionality.js';
-import { resultProcessing, resultPage } from '../pagesJs/pages.js';
+import { testPage } from '../pagesJs/testPage.js';
+import { resultProcessing } from '../pagesJs/resultProcessing.js';
+import { resultPage } from '../pagesJs/resultPage.js';
 import { run_clock } from './timer.js';
+import { request } from './request.js';
+import { clearcontent } from './utils.js';
 
 const questions = document.getElementById('questions')
-const content = getElement('.content')
-const quizContainer = getElement('.quiz-container')
-const nextBtn = getElement('.next-btn')
-const opt = getElement('.quiz-options')
+const btn = getElement('.btn-test')
 
 let length = data.length - 1;
-
 let results = {}
 let withImage = false;
 
 // display questions and options
-const showQuestion = (index) => {
+const showQuestion = (index, quizContainer, nextBtn) => {
   quizContainer.dataset.currentStep = index;
 
   if (index === length) {
@@ -29,46 +29,59 @@ const showQuestion = (index) => {
     clearcontent('#quiz-container')
     resultProcessing()
     setTimeout(() => {
-       clearcontent('#content')
-       resultPage()
+      clearcontent('#content')
+      resultPage()
     }, 2000)
   }
 
   if (data[index]) {
     if (data[index].modifier === 'colorpicker') {
-      renderColor(index, data)
+      renderColor(index, data, quizContainer, nextBtn)
     } else if (data[index].modifier === 'image') {
       withImage = true;
-      renderQuestions(index, data, withImage)
+      renderQuestions(index, data, withImage, quizContainer)
     } else {
-      renderQuestions(index, data, withImage)
+      renderQuestions(index, data, withImage, quizContainer)
     }
     if (data[index].type === 'row') {
       withImage = true;
-      renderRow(index, data)
+      renderRow(index, data, quizContainer, nextBtn)
     }
   }
 }
 
-content.addEventListener('click', (e) => {
-  selectedOption(e)
-  selectedAddition(e)
-  if (e.target.classList.contains('next-btn')) {
-    nextBtn.disabled = true;
-    showQuestion(Number(quizContainer.dataset.currentStep) + 1)
-    updateProgressBar(Number(quizContainer.dataset.currentStep), data);
-  }
+btn.addEventListener('click', (e) => {
+  clearcontent('#hide')
+  testPage()
+
+  const content = getElement('.content')
+  const quizContainer = getElement('.quiz-container')
+  const nextBtn = getElement('.next-btn')
+  const opt = getElement('.quiz-options')
+
+  showQuestion(10, quizContainer, nextBtn)
+  eventListener(content, quizContainer, nextBtn)
 })
 
-content.addEventListener('change', (e) => {
-  if (e.target.classList.contains('radiobtn')) {
-    results[e.target.name] = e.target.value;
-    nextBtn.disabled = false;
-  }
-})
+function eventListener(content, quizContainer, nextBtn) {
+  content.addEventListener('click', (e) => {
+    selectedOption(e, quizContainer)
+    selectedAddition(e, quizContainer, nextBtn)
+    if (e.target.classList.contains('next-btn')) {
+      nextBtn.disabled = true;
 
-function clearcontent(elementID) {
-  document.getElementById(elementID).innerHTML = "";
+      showQuestion(Number(quizContainer.dataset.currentStep) + 1, quizContainer, nextBtn)
+      updateProgressBar(Number(quizContainer.dataset.currentStep), data);
+    }
+
+    content.addEventListener('change', (e) => {
+      if (e.target.classList.contains('radiobtn')) {
+        results[e.target.name] = e.target.value;
+        nextBtn.disabled = false;
+      }
+    })
+  })
 }
 
-showQuestion(10)
+request();
+

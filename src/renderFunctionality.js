@@ -1,4 +1,3 @@
-const quizContainer = document.querySelector('.quiz-container')
 
 function withImgCheck(withImage, index) {
   if(withImage && index === 9) {
@@ -12,7 +11,7 @@ function withImgCheck(withImage, index) {
   }
 }
 
-export const renderQuestions = (index, data, withImage) => {
+export const renderQuestions = (index, data, withImage, quizContainer) => {
   let img;
 
   if (data[index]) {
@@ -42,7 +41,7 @@ export const renderQuestions = (index, data, withImage) => {
   }
 }
 
-export const renderColor = (index, data) => {
+export const renderColor = (index, data, quizContainer, nextBtn) => {
   if (data[index]) {
     const renderCol = () => data[index].answers.map((opt) => `
     <li class="task-item task-item-color" style=background-color:${opt.value}>
@@ -62,7 +61,7 @@ export const renderColor = (index, data) => {
   }
 }
 
-export const renderRow = (index, data) => {
+export const renderRow = (index, data, quizContainer, nextBtn) => {
   let img;
   if(index === 7) {
      img = '../assets/img/imgquiz1.png'
