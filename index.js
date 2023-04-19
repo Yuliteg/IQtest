@@ -1,2 +1,2 @@
-import './src/toggleSidebar.js';
+import './src/helpers/toggleSidebar.js'
 import './src/quiz.js'

@@ -1,4 +1,4 @@
-import { getElement } from "../src/utils.js"
+import { getElement } from "../src/helpers/utils.js"
 
 export function testPage() {
   const brainImg = getElement('.header__icon-container')

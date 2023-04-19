@@ -1,4 +1,4 @@
-import { getElement } from "./utils.js";
+import { getElement } from "./helpers/utils.js";
 
 export function selectedOption(e, quizContainer) {
   quizContainer.querySelectorAll('li').forEach((option) => {

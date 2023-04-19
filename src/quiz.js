@@ -1,17 +1,17 @@
 import data from '../assets/data/data.js'
-import { getElement } from "./utils.js";
-import { updateProgressBar } from './utils.js';
+import { getElement } from "./helpers/utils.js";
+import { updateProgressBar } from './helpers/utils.js';
 import { selectedOption, selectedAddition } from './selectedFunctionality.js';
 import { renderRow, renderColor, renderQuestions } from './renderFunctionality.js';
 import { testPage } from '../pagesJs/testPage.js';
 import { resultProcessing } from '../pagesJs/resultProcessing.js';
 import { resultPage } from '../pagesJs/resultPage.js';
-import { run_clock } from './timer.js';
-import { request } from './request.js';
-import { clearcontent } from './utils.js';
+import { run_clock } from './helpers/timer.js';
+import { request } from './request/request.js';
+import { clearcontent } from './helpers/utils.js';
 
 const questions = document.getElementById('questions')
-const btn = getElement('.btn-test')
+const btns = document.querySelectorAll('.btn-test')
 
 let length = data.length - 1;
 let results = {}
@@ -50,17 +50,19 @@ const showQuestion = (index, quizContainer, nextBtn) => {
   }
 }
 
-btn.addEventListener('click', (e) => {
-  clearcontent('#hide')
-  testPage()
-
-  const content = getElement('.content')
-  const quizContainer = getElement('.quiz-container')
-  const nextBtn = getElement('.next-btn')
-  const opt = getElement('.quiz-options')
-
-  showQuestion(10, quizContainer, nextBtn)
-  eventListener(content, quizContainer, nextBtn)
+btns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    clearcontent('#hide')
+    testPage()
+  
+    const content = getElement('.content')
+    const quizContainer = getElement('.quiz-container')
+    const nextBtn = getElement('.next-btn')
+    const opt = getElement('.quiz-options')
+  
+    showQuestion(10, quizContainer, nextBtn)
+    eventListener(content, quizContainer, nextBtn)
+  })
 })
 
 function eventListener(content, quizContainer, nextBtn) {

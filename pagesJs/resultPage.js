@@ -1,5 +1,5 @@
-import { run_clock } from "../src/timer.js";
-import { getElement } from "../src/utils.js";
+import { run_clock } from "../src/helpers/timer.js";
+import { getElement } from "../src/helpers/utils.js";
 const headerText = document.querySelector(".header_p")
 
 const time_in_minutes = 10;
