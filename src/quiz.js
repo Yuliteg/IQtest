@@ -1,13 +1,16 @@
 import data from '../assets/data/data.js'
 import { getElement } from "./utils.js";
 import { updateProgressBar } from './utils.js';
-import { selectedColor, selectedOption } from './selectedFunctionality.js';
-import { renderRow, renderColor } from './renderFunctionality.js';
+import { selectedOption, selectedAddition } from './selectedFunctionality.js';
+import { renderRow, renderColor, renderQuestions } from './renderFunctionality.js';
 
 const questions = document.getElementById('questions')
 const content = getElement('.content')
 const quizContainer = getElement('.quiz-container')
 const nextBtn = getElement('.next-btn')
+const opt = getElement('.quiz-options')
+
+let length = data.length - 1;
 
 let results = {}
 let withImage = false;
@@ -16,73 +19,40 @@ let withImage = false;
 const showQuestion = (index) => {
   quizContainer.dataset.currentStep = index;
 
-  if (data[index].modifier === 'colorpicker') {
-    renderColor(index, data)
-  } else if (data[index].modifier === 'image') {
-    withImage = true;
-    renderQuestions(index, withImage)
-  }  else {
-    renderQuestions(index)
+  if (index === length) {
+    nextBtn.textContent = "Результат"
   }
-  if(data[index].type === 'row') {
-    withImage = true;
-    renderRow(index, data)
+  if (index > length) {
+    console.log('finish');
+    clearcontent('#quiz-container')
+    resultProcessing()
   }
-}
-
-const renderQuestions = (index, withImage) => {
-  let img;
-
-  if(withImage && index === 9) {
-     img = '../assets/svg/imageTest.svg'
-  } 
 
   if (data[index]) {
-    const renderOptions = () => data[index].answers.map((option, index) => `
-    <li class="task-item">
-   <label for=${option.value} class="label">
-   <input
-   type="radio"
-   value=${option.value}
-   name="radio"
-   class="radiobtn"
-   id=${option.value}
-   >
-   ${option.label}</label>
-     </li>
-  `).join("")
-
-    quizContainer.innerHTML = `
-  <div class="content__test-question">
-    <p id="questions">
-    ${data[index].question}
-    </p>
-  </div>
-
-  ${withImage && `
-  <div class="img-quiz-container">
-  <img src=${img} class="img-quiz"/>
-  </div>
-  `}
-
-   <ul class="quiz-options">
-   ${renderOptions()}
-   </ul>
-  `
+    if (data[index].modifier === 'colorpicker') {
+      renderColor(index, data)
+    } else if (data[index].modifier === 'image') {
+      withImage = true;
+      renderQuestions(index, data, withImage)
+    } else {
+      renderQuestions(index, data, withImage)
+    }
+    if (data[index].type === 'row') {
+      withImage = true;
+      renderRow(index, data)
+    }
   }
 }
 
 content.addEventListener('click', (e) => {
   selectedOption(e)
-  selectedColor(e)
-
+  selectedAddition(e)
   if (e.target.classList.contains('next-btn')) {
     nextBtn.disabled = true;
     showQuestion(Number(quizContainer.dataset.currentStep) + 1)
     updateProgressBar(Number(quizContainer.dataset.currentStep), data);
   }
 })
-
 
 content.addEventListener('change', (e) => {
   if (e.target.classList.contains('radiobtn')) {
@@ -91,4 +61,15 @@ content.addEventListener('change', (e) => {
   }
 })
 
-showQuestion(2)
+function clearcontent(elementID) {
+  document.getElementById(elementID).innerHTML = "";
+}
+
+function resultProcessing() {
+  const innerHTML = `<div class=content__test-question>
+  <p class=res_processing>Обработка результатов</p>
+  </div>`
+  document.getElementById("#quiz-container").innerHTML += innerHTML;
+}
+
+showQuestion(7)

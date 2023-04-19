@@ -145,8 +145,7 @@ const quizData = [
     question: "Вставьте подходящее число",
     name: "star",
     img: true,
-    imgSizes: { width: 14.25, height: 12.9375 },
-    modifier: "row",
+    type: "row",
     answers: [
       { value: "34", label: "34" },
       { value: "36", label: "36" },

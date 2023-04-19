@@ -547,6 +547,7 @@ body {
 }
 
 .task-item > label {
+    align-items: center;
     cursor: pointer;
     display: flex;
     gap: 1.5rem;
@@ -558,6 +559,8 @@ body {
 
 .task-item-row {
     cursor: pointer;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
     margin-top: 7%;
     padding-left: 5%;
     padding-right: 5%;
@@ -572,8 +575,8 @@ body {
 }
 
 .row {
-    gap: 1.8rem;
-    flex-wrap: nowrap;
+    gap: 0.8rem;
+    flex-wrap: wrap;
 }
 
 .img-quiz-container {
@@ -663,6 +666,10 @@ button:disabled {
     background: #FFC700 !important;
 }
 
+.res_processing {
+    font-size: 2.2rem !important;
+    line-height: 2.2rem !important;
+}
 
 /* media */
 @media screen and (max-width: 750px) {
