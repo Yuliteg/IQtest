@@ -3,6 +3,8 @@ import { getElement } from "./utils.js";
 import { updateProgressBar } from './utils.js';
 import { selectedOption, selectedAddition } from './selectedFunctionality.js';
 import { renderRow, renderColor, renderQuestions } from './renderFunctionality.js';
+import { resultProcessing, resultPage } from '../pagesJs/pages.js';
+import { run_clock } from './timer.js';
 
 const questions = document.getElementById('questions')
 const content = getElement('.content')
@@ -23,9 +25,13 @@ const showQuestion = (index) => {
     nextBtn.textContent = "Результат"
   }
   if (index > length) {
-    console.log('finish');
+    nextBtn.disabled = true
     clearcontent('#quiz-container')
     resultProcessing()
+    setTimeout(() => {
+       clearcontent('#content')
+       resultPage()
+    }, 2000)
   }
 
   if (data[index]) {
@@ -65,11 +71,4 @@ function clearcontent(elementID) {
   document.getElementById(elementID).innerHTML = "";
 }
 
-function resultProcessing() {
-  const innerHTML = `<div class=content__test-question>
-  <p class=res_processing>Обработка результатов</p>
-  </div>`
-  document.getElementById("#quiz-container").innerHTML += innerHTML;
-}
-
-showQuestion(7)
+showQuestion(10)

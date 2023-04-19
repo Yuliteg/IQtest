@@ -1,5 +1,3 @@
-
-
 const quizData = [
   {
     id: 0,
