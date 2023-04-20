@@ -21,7 +21,7 @@ export const renderQuestions = (index, data, withImage, quizContainer) => {
     <li class="task-item">
      <label for=${option.value} class="label">
    <input type="radio" value=${option.value}
-   name=${option.value} class="radiobtn"
+   name="radio" class="radiobtn"
    id=${option.value}
    > ${option.label}</label>
      </li>
@@ -46,9 +46,7 @@ export const renderQuestions = (index, data, withImage, quizContainer) => {
 export const renderColor = (index, data, quizContainer, nextBtn) => {
   if (data[index]) {
     const renderCol = () => data[index].answers.map((opt) => `
-    <li class="task-item task-item-color" style=background-color:${opt.value}
-    name=${opt.name} value=${opt.value}
-    >
+    <li class="task-item task-item-color" style=background-color:${opt.value}>
       </li>
     `).join("")
     quizContainer.innerHTML = `
