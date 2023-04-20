@@ -1,3 +1,6 @@
+import { closeSidebar } from "./toggleSidebar.js"
+import { getElement } from "./utils.js"
+
 const anchor = document.querySelector('a[href="#scroll-info"]')
 const scrollDetail = document.querySelector('a[href="#scroll-detail"]')
 
@@ -9,6 +12,7 @@ anchor.addEventListener("click", function(e) {
     block: 'center', 
     inline: 'nearest'
   })
+  closeSidebar()
 })
 
 scrollDetail.addEventListener("click", function(e) {

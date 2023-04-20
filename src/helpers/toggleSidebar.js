@@ -11,3 +11,7 @@ import { getElement } from "./utils.js";
   closeBtn.addEventListener('click', () => {
     sidebarOverlay.classList.remove('show')
   })
+
+export function closeSidebar() {
+  sidebarOverlay.classList.remove('show')
+}

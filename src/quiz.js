@@ -8,6 +8,7 @@ import { resultProcessing } from '../pagesJs/resultProcessing.js';
 import { resultPage } from '../pagesJs/resultPage.js';
 import { run_clock } from './helpers/timer.js';
 import { clearcontent } from './helpers/utils.js';
+import { closeSidebar } from './helpers/toggleSidebar.js';
 
 const questions = document.getElementById('questions')
 const btns = document.querySelectorAll('.btn-test')
@@ -19,7 +20,6 @@ let withImage = false;
 // display questions and options
 const showQuestion = (index, quizContainer, nextBtn) => {
   quizContainer.dataset.currentStep = index;
-  console.log(results);
   if (index === length) {
     nextBtn.textContent = "Результат"
   }
@@ -51,6 +51,7 @@ const showQuestion = (index, quizContainer, nextBtn) => {
 
 btns.forEach(btn => {
   btn.addEventListener('click', (e) => {
+    closeSidebar()
     clearcontent('#hide')
     testPage()
 
