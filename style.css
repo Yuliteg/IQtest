@@ -138,6 +138,7 @@ body {
 }
 
 .sidebar__text {
+    cursor: pointer;
     color: white;
 }
 
