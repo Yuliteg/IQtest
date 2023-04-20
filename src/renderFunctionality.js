@@ -1,3 +1,5 @@
+import { getElement } from "./helpers/utils.js";
+import { getUser } from "./request/request.js";
 
 function withImgCheck(withImage, index) {
   if(withImage && index === 9) {
@@ -19,7 +21,7 @@ export const renderQuestions = (index, data, withImage, quizContainer) => {
     <li class="task-item">
      <label for=${option.value} class="label">
    <input type="radio" value=${option.value}
-   name="radio" class="radiobtn"
+   name=${option.value} class="radiobtn"
    id=${option.value}
    > ${option.label}</label>
      </li>
@@ -44,7 +46,9 @@ export const renderQuestions = (index, data, withImage, quizContainer) => {
 export const renderColor = (index, data, quizContainer, nextBtn) => {
   if (data[index]) {
     const renderCol = () => data[index].answers.map((opt) => `
-    <li class="task-item task-item-color" style=background-color:${opt.value}>
+    <li class="task-item task-item-color" style=background-color:${opt.value}
+    name=${opt.name} value=${opt.value}
+    >
       </li>
     `).join("")
     quizContainer.innerHTML = `
@@ -90,4 +94,27 @@ export const renderRow = (index, data, quizContainer, nextBtn) => {
      </ul>
     `
   }
+}
+
+export async function renderUser() {
+  let user = await getUser();
+  const innerHTML = `
+  <p class="res_header user_info">Информация о пользователе</p>
+  <div class="user_data">
+   <div class=col1>
+     <p>Имя:</p>
+     <p>Рост:</p>
+     <p>Вес:</p>
+     <p>Цвет волос:</p>
+   </div>
+   <div class=col2>
+   <p>${user.name}</p>
+   <p>${user.height}</p>
+   <p>${user.mass}</p>
+   <p>${user.hair_color}</p>
+   </div>
+  </div>
+  `
+  const userDataContainer = getElement('.user_data-container')
+  userDataContainer.innerHTML += innerHTML
 }

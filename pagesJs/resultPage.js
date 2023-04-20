@@ -1,16 +1,17 @@
 import { run_clock } from "../src/helpers/timer.js";
 import { getElement } from "../src/helpers/utils.js";
+import { renderUser } from "../src/renderFunctionality.js";
 const headerText = document.querySelector(".header_p")
 
 const time_in_minutes = 10;
 const current_time = Date.parse(new Date());
 const deadline = new Date(current_time + time_in_minutes * 60 * 1000);
 
-
 export function resultPage() {
   const textContainer = getElement('.hero__intro-header-text')
   textContainer.innerHTML = `<p class=header_p>Готово!
   </p>`
+  renderUser()
 
   const innerHTML = `
    <div class=content__test-question>
@@ -44,6 +45,7 @@ export function resultPage() {
      результат </p>
     </button>
    </div>
+   <div class="user_data-container"></div>
   `
   getElement(".content").innerHTML += innerHTML;
   run_clock('clockdiv', deadline)

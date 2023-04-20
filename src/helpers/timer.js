@@ -14,6 +14,6 @@ export function run_clock(id, endtime) {
     clock.innerHTML = t.minutes + ':' + t.seconds + ' минут';
     if (t.total <= 0) { clearInterval(timeinterval); }
   }
+  var timeinterval = setInterval(update_clock, 1000);
   update_clock();
-  const timeinterval = setInterval(update_clock, 1000);
 }

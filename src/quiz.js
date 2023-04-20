@@ -7,7 +7,6 @@ import { testPage } from '../pagesJs/testPage.js';
 import { resultProcessing } from '../pagesJs/resultProcessing.js';
 import { resultPage } from '../pagesJs/resultPage.js';
 import { run_clock } from './helpers/timer.js';
-import { request } from './request/request.js';
 import { clearcontent } from './helpers/utils.js';
 
 const questions = document.getElementById('questions')
@@ -20,7 +19,7 @@ let withImage = false;
 // display questions and options
 const showQuestion = (index, quizContainer, nextBtn) => {
   quizContainer.dataset.currentStep = index;
-
+  console.log(results);
   if (index === length) {
     nextBtn.textContent = "Результат"
   }
@@ -54,13 +53,13 @@ btns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     clearcontent('#hide')
     testPage()
-  
+
     const content = getElement('.content')
     const quizContainer = getElement('.quiz-container')
     const nextBtn = getElement('.next-btn')
     const opt = getElement('.quiz-options')
-  
-    showQuestion(10, quizContainer, nextBtn)
+
+    showQuestion(0, quizContainer, nextBtn)
     eventListener(content, quizContainer, nextBtn)
   })
 })
@@ -75,15 +74,11 @@ function eventListener(content, quizContainer, nextBtn) {
       showQuestion(Number(quizContainer.dataset.currentStep) + 1, quizContainer, nextBtn)
       updateProgressBar(Number(quizContainer.dataset.currentStep), data);
     }
-
     content.addEventListener('change', (e) => {
       if (e.target.classList.contains('radiobtn')) {
-        results[e.target.name] = e.target.value;
+        results[e.target.name] = [e.target.value];
         nextBtn.disabled = false;
       }
     })
   })
 }
-
-request();
-
